@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "job_matching_app"
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/home/job_matching_app:cached
+      - job_matching_app_bundle:/usr/local/bundle
+      - job_matching_app_rails_cache:/home/job_matching_app/tmp/cache
+    networks:
+      - test_network
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+      - DB_NAME=devdb
+      - DB_USERNAME=dev_user
+      - DB_PASSWORD=123456
+      - DB_HOST=postgresql
+      - DB_PORT=5432
+    depends_on:
+      - postgresql
+  postgresql:
+    image: postgres:12.4-alpine
+    container_name: postgresql
+    networks:
+      - test_network
+    volumes:
+      - job_matching_app_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=dev_user
+      - POSTGRES_PASSWORD=123456
+networks:
+  test_network:
+volumes:
+  job_matching_app_data:
+  job_matching_app_bundle:
+  job_matching_app_rails_cache:

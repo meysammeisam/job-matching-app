@@ -15,3 +15,9 @@ There should be RESTful API response which show list of matches, sorted by match
 - best matches job candidates from the list of users
 
 Also, when the new job will be added, then if it will match to any of the candidates, then the appropriate event(s) should be generated.
+
+## How to Run it
+
+- Docker build `docker-compose build app`
+- Prepare DB  `docker-compose run app rails db:create db:migrate`
+- Run `docker-compose up`

@@ -19,5 +19,3 @@ test:
 production:
   <<: *default
   database: job_matching_app_production
-  username: job_matching_app
-  password: <%= ENV['JOB_MATCHING_APP_DATABASE_PASSWORD'] %>
