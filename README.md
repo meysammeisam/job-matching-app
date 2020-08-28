@@ -21,3 +21,4 @@ Also, when the new job will be added, then if it will match to any of the candid
 - Docker build `docker-compose build app`
 - Prepare DB  `docker-compose run app rails db:create db:migrate`
 - Run `docker-compose up`
+- Rails console `docker-compose run app rails c`
