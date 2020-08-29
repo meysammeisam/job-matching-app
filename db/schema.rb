@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_29_194624) do
+ActiveRecord::Schema.define(version: 2020_08_29_200457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 2020_08_29_194624) do
     t.index ["candidate_id", "job_type_id"], name: "index_candidate_preferred_job_types_on_candidate_and_job_type", unique: true
     t.index ["candidate_id"], name: "index_candidate_preferred_job_types_on_candidate_id"
     t.index ["job_type_id"], name: "index_candidate_preferred_job_types_on_job_type_id"
+  end
+
+  create_table "candidate_preferred_locations", force: :cascade do |t|
+    t.bigint "candidate_id", null: false
+    t.bigint "district_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["candidate_id", "district_id"], name: "index_candidate_preferred_locations_on_candidate_and_district", unique: true
+    t.index ["candidate_id"], name: "index_candidate_preferred_locations_on_candidate_id"
+    t.index ["district_id"], name: "index_candidate_preferred_locations_on_district_id"
   end
 
   create_table "candidate_working_hours", force: :cascade do |t|
@@ -73,5 +83,7 @@ ActiveRecord::Schema.define(version: 2020_08_29_194624) do
 
   add_foreign_key "candidate_preferred_job_types", "candidates"
   add_foreign_key "candidate_preferred_job_types", "job_types"
+  add_foreign_key "candidate_preferred_locations", "candidates"
+  add_foreign_key "candidate_preferred_locations", "districts"
   add_foreign_key "candidate_working_hours", "candidates"
 end
