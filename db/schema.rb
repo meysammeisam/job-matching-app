@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_29_193328) do
+ActiveRecord::Schema.define(version: 2020_08_29_194624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "candidate_preferred_job_types", force: :cascade do |t|
+    t.bigint "candidate_id", null: false
+    t.bigint "job_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["candidate_id", "job_type_id"], name: "index_candidate_preferred_job_types_on_candidate_and_job_type", unique: true
+    t.index ["candidate_id"], name: "index_candidate_preferred_job_types_on_candidate_id"
+    t.index ["job_type_id"], name: "index_candidate_preferred_job_types_on_job_type_id"
+  end
 
   create_table "candidate_working_hours", force: :cascade do |t|
     t.bigint "candidate_id", null: false
@@ -61,5 +71,7 @@ ActiveRecord::Schema.define(version: 2020_08_29_193328) do
     t.index ["job_type_id"], name: "index_jobs_on_job_type_id"
   end
 
+  add_foreign_key "candidate_preferred_job_types", "candidates"
+  add_foreign_key "candidate_preferred_job_types", "job_types"
   add_foreign_key "candidate_working_hours", "candidates"
 end
