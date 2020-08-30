@@ -8,10 +8,6 @@ services:
     container_name: "job_matching_app"
     tty: true
     stdin_open: true
-    volumes:
-      - .:/home/job_matching_app:cached
-      - job_matching_app_bundle:/usr/local/bundle
-      - job_matching_app_rails_cache:/home/job_matching_app/tmp/cache
     networks:
       - test_network
     ports:
@@ -28,6 +24,8 @@ services:
   postgresql:
     image: postgres:12.4-alpine
     container_name: postgresql
+    ports:
+      - "5432:5432"
     networks:
       - test_network
     volumes:
@@ -39,5 +37,3 @@ networks:
   test_network:
 volumes:
   job_matching_app_data:
-  job_matching_app_bundle:
-  job_matching_app_rails_cache:

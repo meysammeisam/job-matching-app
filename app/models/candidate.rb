@@ -1,4 +1,6 @@
 class Candidate < ApplicationRecord
+  include CandidateFilter
+
   has_many :working_hours, class_name: 'CandidateWorkingHour', dependent: :destroy
   has_many :candidate_preferred_job_types, dependent: :destroy
   has_many :preferred_job_types,
