@@ -10,7 +10,7 @@ module MatchingTool
     end
 
     def subject_model
-      Candidate
+      Job
     end
 
     def matched_results

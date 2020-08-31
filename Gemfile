@@ -21,6 +21,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # gem 'rack-cors'
 
 gem 'dry-initializer', '>= 3.0.3'
+gem 'fast_jsonapi', '>= 1.5'
 gem 'kaminari', '>= 1.2.1'
 gem 'validates_timeliness', '~> 5.0.0.beta1'
 
