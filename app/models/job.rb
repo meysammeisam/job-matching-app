@@ -1,4 +1,6 @@
 class Job < ApplicationRecord
+  include JobFilter
+
   belongs_to :location, class_name: 'District', inverse_of: :jobs
   belongs_to :job_type, inverse_of: :jobs
 

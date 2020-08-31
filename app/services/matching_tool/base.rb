@@ -8,12 +8,29 @@ module MatchingTool
     option :page, optional: true, default: -> { 0 }
     option :per_page, optional: true, default: -> { 10 }
 
+    def call
+      paginate sorted_matched_results
+    end
+
     private
 
     def paginate(relation)
       relation
         .page(page)
         .per(page_size)
+    end
+
+    def sorted_matched_results
+      subject_model
+        .select('
+          inner_query.*,
+          (
+            COALESCE(match_location, 0) +
+            COALESCE(match_working_hour, 0) +
+            COALESCE(match_job_type,0)
+          ) as matching_rate')
+        .from(matched_results, :inner_query)
+        .order(matching_rate: :desc)
     end
 
     def page_size
